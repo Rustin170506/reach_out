@@ -9,8 +9,9 @@ defmodule ReachOut.GitHub do
     Enum.map(commits, fn commit -> commit["commit"]["author"] end)
     |> Enum.map(fn author -> %{name: author["name"], email: author["email"]} end)
     |> Enum.uniq_by(fn %{name: _, email: email} -> email end)
-    |> Enum.filter(fn %{name: _, email: email} ->
-      !String.ends_with?(email, "@users.noreply.github.com")
+    |> Enum.filter(fn %{name: name, email: email} ->
+      !String.ends_with?(email, "@users.noreply.github.com") &&
+        !String.length(String.trim(email)) == 0 && !String.length(String.trim(name)) == 0
     end)
   end
 
