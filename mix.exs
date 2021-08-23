@@ -21,7 +21,7 @@ defmodule ReachOut.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:tentacat, "~> 2.0"}
+      {:tentacat, git: "https://github.com/hi-rustin/tentacat.git"}
     ]
   end
 end
