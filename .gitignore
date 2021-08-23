@@ -27,3 +27,6 @@ reach_out-*.tar
 
 # IDEA
 reach_out.iml
+
+# ENV
+.env
