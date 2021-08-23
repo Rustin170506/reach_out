@@ -22,7 +22,8 @@ defmodule ReachOut.MixProject do
   defp deps do
     [
       {:swoosh, "~> 1.5"},
-      {:mail, ">= 0.0.0"},
+      {:ecto_sql, "~> 3.2"},
+      {:myxql, "~> 0.5.0"},
       {:tentacat, git: "https://github.com/hi-rustin/tentacat.git"}
     ]
   end

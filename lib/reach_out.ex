@@ -3,12 +3,13 @@ defmodule ReachOut do
     :world
   end
 
-  def run(owner, repo) do
+  def crawl(owner, repo) do
+    ReachOut.Supervisor.start_link({})
+
     ReachOut.GitHub.list_commits(owner, repo)
     |> ReachOut.GitHub.filter_contributors()
     |> Enum.each(fn contributor ->
-      ReachOut.ReachOutEmail.reach_out(contributor)
-      |> ReachOut.Mailer.deliver()
+      ReachOut.Contributors.create_contributor(contributor)
     end)
   end
 end
