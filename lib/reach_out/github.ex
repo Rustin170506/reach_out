@@ -10,7 +10,7 @@ defmodule ReachOut.GitHub do
     |> Enum.map(fn author ->
       %{owner: owner, repo: repo, name: author["name"], email: author["email"]}
     end)
-    |> Enum.uniq_by(fn author -> author[:email] end)
+    |> Enum.uniq_by(fn author -> String.upcase(author[:email]) end)
     |> Enum.filter(fn author ->
       Regex.match?(~r/@/, author[:email]) &&
         !String.ends_with?(author[:email], "@users.noreply.github.com") &&
