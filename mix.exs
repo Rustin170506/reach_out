@@ -24,7 +24,8 @@ defmodule ReachOut.MixProject do
       {:swoosh, "~> 1.5"},
       {:ecto_sql, "~> 3.2"},
       {:myxql, "~> 0.5.0"},
-      {:tentacat, git: "https://github.com/hi-rustin/tentacat.git"}
+      {:tentacat, git: "https://github.com/hi-rustin/tentacat.git"},
+      {:dotenv, "~> 3.0.0"}
     ]
   end
 end
