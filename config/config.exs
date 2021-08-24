@@ -11,3 +11,5 @@ config :reach_out, ReachOut.Contributors.Repo,
 config :reach_out, ReachOut.Mailer,
   adapter: Swoosh.Adapters.Sendgrid,
   api_key: {:system, "SENDGRID_API_KEY"}
+
+config :logger, :console, level: :info
