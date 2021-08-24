@@ -10,6 +10,7 @@ defmodule ReachOut.GitHub do
     |> Enum.map(fn author ->
       %{owner: owner, repo: repo, name: author["name"], email: author["email"]}
     end)
+    # mysql is case-insensitive by default, so we need to filter to people with the same name.
     |> Enum.uniq_by(fn author -> String.upcase(author[:email]) end)
     |> Enum.filter(fn author ->
       Regex.match?(~r/@/, author[:email]) &&
@@ -21,10 +22,14 @@ defmodule ReachOut.GitHub do
       Map.put(
         author,
         :commits,
-        Enum.count(commits, fn commit ->
-          commit["commit"]["author"]["email"] == author[:email] ||
-            commit["commit"]["author"]["name"] == author[:name]
-        end)
+        Enum.count(
+          commits,
+          fn commit ->
+            # Case insensitive, as long as the names are the same.
+            commit["commit"]["author"]["email"] == author[:email] ||
+              String.upcase(commit["commit"]["author"]["name"]) == String.upcase(author[:name])
+          end
+        )
       )
     end)
   end
