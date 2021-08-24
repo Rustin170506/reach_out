@@ -18,6 +18,7 @@ defmodule ReachOut do
 
     ReachOut.Contributors.list_unsent_contributors()
     |> Enum.each(fn c ->
+      ReachOut.ReachOutEmail.reach_out(c) |> ReachOut.Mailer.deliver()
       ReachOut.Contributors.mark_sent(c.email)
     end)
   end

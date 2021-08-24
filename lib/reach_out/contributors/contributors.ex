@@ -35,6 +35,16 @@ defmodule ReachOut.Contributors do
     |> where([c], c.commits >= 5 and c.sent == false)
     |> order_by([c], c.commits)
     |> Repo.all()
+    |> Enum.map(fn contributor ->
+      %{
+        owner: contributor.owner,
+        repo: contributor.repo,
+        email: contributor.email,
+        name: contributor.name,
+        commits: contributor.commits
+      }
+    end)
+    |> Enum.uniq_by(fn contributor -> String.upcase(contributor[:email]) end)
   end
 
   def mark_sent(email) do
